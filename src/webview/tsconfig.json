@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ES2018",
+    "outDir": "../out",
+    "typeRoots": ["./typings"],
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "lib": ["dom", "esnext"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./", "../../global.d.ts"],
+  "exclude": ["node_modules"],
+}

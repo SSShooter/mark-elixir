@@ -1,0 +1,84 @@
+{
+  "name": "call-map",
+  "displayName": "Mind Elixir Calls Map",
+  "icon": "images/icon.png",
+  "publisher": "MindElixir",
+  "repository": "https://github.com/SSShooter/call-map",
+  "description": "Check function outgoing/incoming calls as a Mind Map.",
+  "version": "0.0.2",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "mind-elixir.markdown",
+        "title": "Show Markdown as Mind Map",
+        "icon": "$(markdown)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "mind-elixir.markdown",
+          "when": "editorLangId == markdown",
+          "title": "Hello",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Call Map Configuration",
+      "properties": {
+        "mindElixirCallMap.depth": {
+          "type": "number",
+          "default": 1,
+          "description": "The depth of the call map"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test",
+    "build": "pnpm vsce package --no-dependencies --allow-star-activation"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.90.0",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "esbuild": "^0.21.4",
+    "eslint": "^8.57.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@vscode/vsce": "^2.27.0",
+    "mind-elixir": "^4.0.4",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.0",
+    "unified": "^11.0.4"
+  }
+}
