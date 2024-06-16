@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype'; 
-import rehypeImgSize from 'rehype-img-size';
+import rehypeImgSize from '@mind-elixir/rehype-img-size';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import { unified } from 'unified';

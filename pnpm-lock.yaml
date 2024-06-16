@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@mind-elixir/rehype-img-size':
+    specifier: ^1.0.2
+    version: 1.0.2
   '@types/mdast':
     specifier: ^4.0.4
     version: 4.0.4
@@ -495,6 +498,14 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
+
+  /@mind-elixir/rehype-img-size@1.0.2:
+    resolution: {integrity: sha512-qTRHE0hPrxbGrsUfQ/g/yxnpyytEfYunMhMI7DFbGWAqaaWSVtdHh8AFnsXhRDa+an1kyEYXdn07T6/tNw8y3A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      image-size: 1.1.1
+      unist-util-visit: 4.1.2
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}

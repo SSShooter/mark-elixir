@@ -2,9 +2,9 @@
 
 ## Features
 
-Check function outgoing/incoming calls as a Mind Map. Powered by Mind Elixir.
+Check markdown file as a Mind Map. Powered by Mind Elixir.
 
-Command: `mind-elixir.outcall`, `mind-elixir.incall`
+Command: `mind-elixir.markdown`
 
 ## Extension Settings
 
@@ -23,6 +23,5 @@ Users appreciate release notes as you update your extension.
 MVP
 
 ---
- 
 
 **Enjoy!**

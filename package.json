@@ -1,11 +1,11 @@
 {
-  "name": "call-map",
-  "displayName": "Mind Elixir Calls Map",
+  "name": "mark-elixir",
+  "displayName": "Markdown MindMap",
   "icon": "images/icon.png",
   "publisher": "MindElixir",
-  "repository": "https://github.com/SSShooter/call-map",
-  "description": "Check function outgoing/incoming calls as a Mind Map.",
-  "version": "0.0.2",
+  "repository": "https://github.com/SSShooter/mark-elixir",
+  "description": "Check markdown file as a Mind Map.",
+  "version": "0.0.1",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -75,6 +75,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@mind-elixir/rehype-img-size": "^1.0.2",
     "@types/mdast": "^4.0.4",
     "@vscode/vsce": "^2.27.0",
     "mind-elixir": "^4.0.4",
