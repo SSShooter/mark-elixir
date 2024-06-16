@@ -66,7 +66,7 @@ const handleMessage = (event: MessageEvent<MessageFromVSCode>) => {
         topic: payload.name,
         id: 'root',
         root: true,
-        children: payload.children?.map(handleChild),
+        children: payload.children as any,
       },
     };
     const mind = new MindElixir(options);
