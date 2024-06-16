@@ -110,8 +110,21 @@ const treeToMindElixir = async (med: TreeItem & NodeObj) => {
   if (!med?.children || med?.children?.length === 0) {
     return;
   }
+
   for (let i = 0; i < med.children.length; i++) {
-    const child = med.children[i];
+    let child = med.children[i];
+    const next = med.children[i + 1];
+    // 检测下一个节点是否是列表，是的话直接归到前面的子节点
+    if (next?.type === 'list') {
+      child.children = processList(next.object);
+      med.children.splice(i + 1, 1);
+    }
+    if(child.type === 'list' && i === 0) {
+      const children = processList(child.object);
+      med.children.splice(i, 1, ...children);
+      child = children[0];
+    }
+
     await treeToMindElixir(child);
   }
 };
