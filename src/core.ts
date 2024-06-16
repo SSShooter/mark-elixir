@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import remarkHtml from 'remark-html';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype'; 
 import rehypeImgSize from 'rehype-img-size';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
@@ -120,6 +120,7 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
       .use(remarkParse)
       // .use(rehypeSanitize)
       // .use(rehypeStringify)
+      .use(remarkGfm)
       .parse(documentContent);
     // 输出文档内容到控制台
     const children = ast.children;
