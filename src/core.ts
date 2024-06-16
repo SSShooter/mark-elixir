@@ -1,14 +1,17 @@
 import * as vscode from 'vscode';
 import remarkParse from 'remark-parse';
+import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
-import remarkRehype from 'remark-rehype'; 
-import rehypeImgSize from '@mind-elixir/rehype-img-size';
+import remarkRehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import { unified } from 'unified';
 import { MindElixirPanel } from './panel';
 import type { Heading, List, Paragraph, RootContent } from 'mdast';
+import type { Root } from 'hast';
 import { NodeObj } from 'mind-elixir';
+import type { Plugin } from 'unified';
+import { visit } from 'unist-util-visit';
 
 interface TreeItem {
   children: TreeItem[]
@@ -58,7 +61,7 @@ const markdownAstToTree = (children: RootContent[]) => {
   return treeItem;
 };
 
-const processList = (list: List):any => {
+const processList = (list: List): any => {
   return list.children.map((child) => {
     const item = child.children[0] as Paragraph;
     const nest = child.children[1] as List;
@@ -84,9 +87,19 @@ const treeToMindElixir = async (med: TreeItem & NodeObj) => {
     const htmlAst = await unified()
       .use(remarkRehype)
       .use(rehypeHighlight)
-      .use(rehypeImgSize)
+      .use(
+        (() =>
+          function transformer(tree) {
+            visit(tree, 'element', function visitor(node) {
+              if (node.tagName === 'img') {
+                node.properties.width = 200;
+                node.properties.height = 100;
+              }
+            });
+          }) as Plugin<[], Root>
+      )
       .run(med.object);
-    const html = await unified().use(rehypeStringify).stringify(htmlAst);
+    const html = unified().use(rehypeStringify).stringify(htmlAst);
     med.dangerouslySetInnerHTML = html;
   }
   med.id = med.object.position?.start?.offset?.toString() || '';
@@ -116,10 +129,9 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
 
     // 获取文档的内容
     const documentContent = document.getText();
-    const ast = await unified()
+    const ast = unified()
       .use(remarkParse)
-      // .use(rehypeSanitize)
-      // .use(rehypeStringify)
+      .use(remarkFrontmatter)
       .use(remarkGfm)
       .parse(documentContent);
     // 输出文档内容到控制台
@@ -128,7 +140,9 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
 
     // 将 unified 的 markdown ast 转换为树状数据结构
     const tree = markdownAstToTree(
-      ast.children.filter((child) => child.type !== 'html')
+      ast.children.filter(
+        (child) => child.type !== 'yaml' && child.type !== 'html'
+      )
     );
     await treeToMindElixir(tree as any);
     vscode.window.showInformationMessage('Document content printed to console');

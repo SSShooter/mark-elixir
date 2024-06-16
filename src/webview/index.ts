@@ -13,7 +13,7 @@ interface Window {
 declare const window: Window & typeof globalThis;
 
 const vsc = window.acquireVsCodeApi();
-const E = MindElixir.E;
+
 const options: Options = {
   el: '#map',
   newTopicName: '子节点',
@@ -70,6 +70,7 @@ const handleMessage = (event: MessageEvent<MessageFromVSCode>) => {
       },
     };
     const mind = new MindElixir(options);
+    console.log(JSON.stringify(data));
     mind.init(data);
     mind.bus.addListener('selectNode', (nodeData: CallMapNodeObj, e) => {
       console.log(nodeData);

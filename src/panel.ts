@@ -20,7 +20,10 @@ export class MindElixirPanel {
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, 'dist', 'webview.js')
     );
-    const styleUri = webview.asWebviewUri(
+    const index = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, 'public', 'index.css')
+    );
+    const hljs = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, 'public', 'hljs.css')
     );
     return `<!DOCTYPE html>
@@ -29,7 +32,8 @@ export class MindElixirPanel {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Cat Coding</title>
-            <link rel="stylesheet" href="${styleUri}">
+            <link rel="stylesheet" href="${hljs}">
+            <link rel="stylesheet" href="${index}">
             <style>
               /* test tailwind compatibility */
               *,

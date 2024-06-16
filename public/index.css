@@ -1,0 +1,18 @@
+.map-canvas img {
+  display: block;
+  object-fit: contain;
+}
+
+.map-container me-tpc > * {
+  pointer-events: all !important;
+}
+
+.map-canvas h1,
+.map-canvas h2,
+.map-canvas h3,
+.map-canvas h4,
+.map-canvas h5,
+.map-canvas h6,
+.map-canvas p {
+  margin: 0;
+}
