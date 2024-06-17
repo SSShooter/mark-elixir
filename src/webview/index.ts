@@ -85,3 +85,5 @@ const handleMessage = (event: MessageEvent<MessageFromVSCode>) => {
   }
 };
 window.addEventListener('message', handleMessage);
+
+// TODO: Expand All & Collapse All
