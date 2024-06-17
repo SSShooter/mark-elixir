@@ -176,7 +176,7 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
       )
     );
     await treeToMindElixir(tree as any);
-    vscode.window.showInformationMessage('Document content printed to console');
+    
     const mindElixirPanel = new MindElixirPanel(
       context.extensionUri,
       title + ' - Mark Elixir'
@@ -186,7 +186,7 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
       payload: { name: title, children: tree.children },
     });
     mindElixirPanel.panel.webview.onDidReceiveMessage(
-      (message: MessageFromWebview) => {}
+      (message: any) => {}
     );
     context.subscriptions.push(mindElixirPanel.panel);
   };

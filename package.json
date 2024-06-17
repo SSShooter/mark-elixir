@@ -78,7 +78,7 @@
     "@types/hast": "^3.0.4",
     "@types/mdast": "^4.0.4",
     "@vscode/vsce": "^2.27.0",
-    "mind-elixir": "^4.0.4",
+    "mind-elixir": "^4.0.5",
     "rehype-highlight": "^7.0.0",
     "rehype-img-size": "^1.0.1",
     "rehype-stringify": "^10.0.0",
