@@ -176,18 +176,19 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
       )
     );
     await treeToMindElixir(tree as any);
-    
+
     const mindElixirPanel = new MindElixirPanel(
       context.extensionUri,
       title + ' - Mark Elixir'
     );
-    mindElixirPanel.panel.webview.postMessage({
-      command: 'init',
-      payload: { name: title, children: tree.children },
+    await mindElixirPanel.init({
+      topic: title,
+      id: 'root',
+      root: true,
+      children: tree.children as any,
     });
-    mindElixirPanel.panel.webview.onDidReceiveMessage(
-      (message: any) => {}
-    );
+    // mindElixirPanel.download();
+    mindElixirPanel.panel.webview.onDidReceiveMessage((message: any) => {});
     context.subscriptions.push(mindElixirPanel.panel);
   };
 };

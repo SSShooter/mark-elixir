@@ -1,7 +1,10 @@
 import * as vscode from 'vscode';
+import { getFileContentAsString, saveFile } from './utils';
+import { NodeObj } from 'mind-elixir';
 
 export class MindElixirPanel {
   panel: vscode.WebviewPanel;
+  html?: string;
   constructor(private readonly _extensionUri: vscode.Uri, name: string) {
     const panel = vscode.window.createWebviewPanel(
       'mindElixir',
@@ -13,17 +16,31 @@ export class MindElixirPanel {
         retainContextWhenHidden: true,
       }
     );
-    panel.webview.html = this.getWebviewContent(panel.webview);
     this.panel = panel;
   }
-  getWebviewContent = (webview: vscode.Webview) => {
-    const scriptUri = webview.asWebviewUri(
+  async init(nodeData: NodeObj) {
+    this.html = await this.getWebviewContent(nodeData);
+    this.panel.webview.html = this.html;
+
+    this.panel.webview.onDidReceiveMessage((message: any) => {
+      switch (message.command) {
+        case 'download':
+          this.download();
+          return;
+      }
+    });
+  }
+  async download() {
+    saveFile(this.html!);
+  }
+  getWebviewContent = async (nodeData: NodeObj) => {
+    const js = await getFileContentAsString(
       vscode.Uri.joinPath(this._extensionUri, 'dist', 'webview.js')
     );
-    const index = webview.asWebviewUri(
+    const index = await getFileContentAsString(
       vscode.Uri.joinPath(this._extensionUri, 'public', 'index.css')
     );
-    const hljs = webview.asWebviewUri(
+    const hljs = await getFileContentAsString(
       vscode.Uri.joinPath(this._extensionUri, 'public', 'hljs.css')
     );
     return `<!DOCTYPE html>
@@ -31,34 +48,16 @@ export class MindElixirPanel {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Cat Coding</title>
-            <link rel="stylesheet" href="${hljs}">
-            <link rel="stylesheet" href="${index}">
-            <style>
-              /* test tailwind compatibility */
-              *,
-              ::before,
-              ::after {
-                box-sizing: border-box;
-                border-width: 0;
-                border-style: solid;
-                border-color: #e5e7eb;
-              }
-              body {
-                padding: 0;
-              }
-              #map{
-                height: 100vh;
-                width: 100vw;
-              }
-              me-main>me-wrapper{
-                margin:10px !important;
-              }
-            </style>
+            <title>Mark Elixir</title>
+            <style>${hljs}</style>
+            <style>${index}</style>
         </head>
         <body>
             <div id="map"></div>
-            <script type="module" src="${scriptUri}"></script>
+            <script>
+              window.injectedData = ${JSON.stringify({ nodeData })};
+              ${js}
+            </script>
         </body>
         </html>`;
   };

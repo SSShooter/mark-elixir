@@ -5,16 +5,16 @@ import type {
   NodeObj,
   Options,
 } from 'mind-elixir';
-import { MessageFromVSCode } from '../../global';
 
 interface Window {
+  injectedData: MindElixirData;
   acquireVsCodeApi(): {
     postMessage: (message: any) => void;
   };
 }
 declare const window: Window & typeof globalThis;
 
-const vsc = window.acquireVsCodeApi();
+const vsc = window.acquireVsCodeApi && window.acquireVsCodeApi();
 
 const setExpandedAll = (data: NodeObj, expanded: boolean) => {
   data.expanded = expanded;
@@ -25,29 +25,8 @@ const setExpandedAll = (data: NodeObj, expanded: boolean) => {
   }
 };
 
-let data: MindElixirData = null;
+let data: MindElixirData = window.injectedData;
 let mind: MindElixirInstance | null = null;
-const btnGroup = document.createElement('div');
-btnGroup.className = 'btn-group';
-btnGroup.innerHTML = `
-  <button id="expand-all">Expand All</button>
-  <button id="collapse-all">Collapse All</button>
-`;
-btnGroup.style.position = 'absolute';
-btnGroup.style.bottom = '20px';
-btnGroup.style.left = '0';
-document.body.appendChild(btnGroup);
-const expandAllBtn = document.getElementById('expand-all');
-const collapseAllBtn = document.getElementById('collapse-all');
-expandAllBtn?.addEventListener('click', () => {
-  console.log(data);
-  setExpandedAll(data.nodeData, true);
-  mind.refresh();
-});
-collapseAllBtn?.addEventListener('click', () => {
-  setExpandedAll(data.nodeData, false);
-  mind.refresh();
-});
 
 const options: Options = {
   el: '#map',
@@ -79,25 +58,36 @@ const options: Options = {
   theme: MindElixir.DARK_THEME,
 };
 
-const handleMessage = (event: MessageEvent<MessageFromVSCode>) => {
-  if (event.data.command === 'init') {
-    console.log(event.data);
-    const payload = event.data.payload;
-    data = {
-      nodeData: {
-        topic: payload.name,
-        id: 'root',
-        root: true,
-        children: payload.children as any,
-      },
-    };
-    mind = new MindElixir(options);
-    console.log(JSON.stringify(data));
-    mind.init(data);
-    mind.bus.addListener('selectNode', (nodeData: NodeObj, e) => {
-      console.log(nodeData);
-      vsc.postMessage({});
-    });
-  }
-};
-window.addEventListener('message', handleMessage);
+mind = new MindElixir(options);
+console.log(JSON.stringify(data));
+mind.init(data);
+mind.bus.addListener('selectNode', (nodeData: NodeObj, e) => {
+  console.log(nodeData);
+  vsc.postMessage({});
+});
+
+const toolBar = document.querySelector('.mind-elixir-toolbar.rb');
+const expandAllBtn = document.createElement('span');
+expandAllBtn.innerHTML = 'Expand All';
+const collapseAllBtn = document.createElement('span');
+collapseAllBtn.innerHTML = 'Collapse All';
+expandAllBtn?.addEventListener('click', () => {
+  setExpandedAll(data.nodeData, true);
+  mind.refresh();
+});
+collapseAllBtn?.addEventListener('click', () => {
+  setExpandedAll(data.nodeData, false);
+  mind.refresh();
+});
+toolBar?.appendChild(expandAllBtn);
+toolBar?.appendChild(collapseAllBtn);
+
+if (vsc) {
+  const downloadBtn = document.createElement('span');
+  downloadBtn.innerHTML = 'Download';
+  downloadBtn.addEventListener('click', () => {
+    vsc.postMessage({ command: 'download' });
+  });
+  toolBar?.appendChild(downloadBtn);
+}
+// window.addEventListener('message', handleMessage);
