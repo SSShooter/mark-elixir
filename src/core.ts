@@ -184,7 +184,6 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
     await mindElixirPanel.init({
       topic: title,
       id: 'root',
-      root: true,
       children: tree.children as any,
     });
     // mindElixirPanel.download();
