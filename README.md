@@ -1,27 +1,19 @@
-# mind-elixir README
+# Markdown Mindmap
 
 ## Features
 
-Check markdown file as a Mind Map. Powered by Mind Elixir.
+Check markdown file as a Mind Map. Powered by [Mind Elixir](https://github.com/SSShooter/mind-elixir-core).
 
 Command: `mind-elixir.markdown`
 
-## Extension Settings
+## How To Use
 
-Set call depth in setting page.
+Click The Button.
 
-## Known Issues
+![Click The Button](./images/how-to-use-1.png)
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+View Markdown As A Mindmap.
 
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 0.0.1
-
-MVP
-
----
+![View Markdown As A Mindmap](./images/how-to-use-2.png)
 
 **Enjoy!**
