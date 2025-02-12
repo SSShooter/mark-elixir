@@ -55,7 +55,7 @@ importers:
         specifier: ^10.0.6
         version: 10.0.6
       '@types/node':
-        specifier: 18.x
+        specifier: ~18.19.34
         version: 18.19.34
       '@types/vscode':
         specifier: ^1.90.0

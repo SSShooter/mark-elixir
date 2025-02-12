@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
@@ -162,8 +163,8 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
       .use(remarkGfm)
       .parse(documentContent);
 
-    const frontmatter = ast.children.find((child) => child.type === 'yaml');
-    let title = document.fileName;
+    const frontmatter = ast.children.find((child) => child.type === 'yaml'); 
+    let title = path.basename(document.fileName);
     if (frontmatter) {
       const obj = parseFrontmatter((frontmatter as Yaml).value);
       if (obj.title) {
