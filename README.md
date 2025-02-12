@@ -10,11 +10,11 @@ Open any Markdown file in VS Code.
 
 Click The Button (Or Use Command: `mind-elixir.markdown`)
 
-![Click The Button](./images/how-to-use-1.png)
+![Click The Button](https://github.com/SSShooter/mark-elixir/blob/master/images/how-to-use-1.png?raw=true)
 
 View Markdown As A Mindmap.
 
-![View Markdown As A Mindmap](./images/how-to-use-2.png)
+![View Markdown As A Mindmap](https://github.com/SSShooter/mark-elixir/blob/master/images/how-to-use-2.png?raw=true)
 
 **Enjoy!**
 
