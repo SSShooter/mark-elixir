@@ -163,8 +163,13 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
       .use(remarkGfm)
       .parse(documentContent);
 
-    const frontmatter = ast.children.find((child) => child.type === 'yaml'); 
+    const frontmatter = ast.children.find((child) => child.type === 'yaml');
     let title = path.basename(document.fileName);
+
+    // Get configuration value
+    const config = vscode.workspace.getConfiguration('mindElixirMarkdown');
+    const useH1AsRoot = config.get('h1AsRoot');
+
     if (frontmatter) {
       const obj = parseFrontmatter((frontmatter as Yaml).value);
       if (obj.title) {
@@ -182,11 +187,19 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
       context.extensionUri,
       title + ' - Mark Elixir'
     );
-    await mindElixirPanel.init({
-      topic: title,
-      id: 'root',
-      children: tree.children as any,
-    });
+
+    let data = undefined;
+    if (useH1AsRoot && tree.children.length === 1) {
+      const h1 = tree.children[0] as any as NodeObj;
+      data = h1;
+    } else {
+      data = {
+        topic: title,
+        id: 'root',
+        children: tree.children as any,
+      };
+    }
+    await mindElixirPanel.init(data);
     // mindElixirPanel.download();
     mindElixirPanel.panel.webview.onDidReceiveMessage((message: any) => {});
     context.subscriptions.push(mindElixirPanel.panel);

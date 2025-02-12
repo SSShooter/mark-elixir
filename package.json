@@ -36,12 +36,12 @@
     },
     "configuration": {
       "type": "object",
-      "title": "Call Map Configuration",
+      "title": "Markdown Mind Map",
       "properties": {
-        "mindElixirCallMap.depth": {
-          "type": "number",
-          "default": 1,
-          "description": "The depth of the call map"
+        "mindElixirMarkdown.h1AsRoot": {
+          "type": "boolean",
+          "default": true,
+          "description": "If there is exactly one top-level heading (h1), use it as the root node instead of the file name"
         }
       }
     }
