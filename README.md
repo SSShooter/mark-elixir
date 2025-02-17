@@ -6,6 +6,8 @@ Check markdown file as a Mind Map. Powered by [Mind Elixir](https://github.com/S
 
 ## How To Use
 
+Download the extension on [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MindElixir.mark-elixir&ssr=false).
+
 Open any Markdown file in VS Code.
 
 Click The Button (Or Use Command: `mind-elixir.markdown`)
