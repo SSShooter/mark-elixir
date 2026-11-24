@@ -89,7 +89,7 @@
     "@mind-elixir/import-markdown": "0.0.2",
     "@types/hast": "^3.0.4",
     "@types/mdast": "^4.0.4",
-    "@vscode/vsce": "^2.27.0",
+    "@vscode/vsce": "^4.1.1",
     "katex": "^0.16.45",
     "mind-elixir": "5.11.3",
     "rehype-highlight": "^7.0.0",

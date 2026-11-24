@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   release:
@@ -57,10 +58,9 @@ jobs:
         run: pnpm run build
 
       # Publish before tagging so a failed publish never leaves a tag behind.
+      # Uses OIDC Trusted Publishing — no PAT secret required.
       - name: Publish to VS Code Marketplace
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-        run: pnpm exec vsce publish --no-dependencies --allow-star-activation
+        run: pnpm exec vsce publish --oidc --no-dependencies --allow-star-activation
 
       - name: Publish to Open VSX Registry
         env:
