@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-11-24
+- Add VS Code parser parity test script for verifying markdown parsing consistency.
+- Add manually triggered release workflow (build, publish, tag, release).
+
 ## [1.1.0] - 2026-05-22
 - Implement markdown-it plugin to render MindElixir mindmaps directly inside VSCode standard markdown previews (e.g. using `mindmap` code blocks).
 - Integrate KaTeX `mhchem` extension for high-quality chemical formula rendering.
