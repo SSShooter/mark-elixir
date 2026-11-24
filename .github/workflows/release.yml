@@ -1,0 +1,79 @@
+# Manually triggered release pipeline:
+# build -> publish to VS Code Marketplace & Open VSX -> create tag + GitHub release (with changelog section)
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - run: pnpm install
+
+      - name: Read version and check tag
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/v$VERSION"; then
+            echo "::error::Tag v$VERSION already exists"
+            exit 1
+          fi
+          echo "Releasing v$VERSION"
+
+      - name: Extract changelog section for this version
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          # Supports both "## 1.2.0" (Keep a Changelog style) and "## [1.2.0] - date" headings
+          awk -v ver="$VERSION" '
+            /^## / {
+              h = $0; gsub(/[\[\]]/, "", h)
+              if (index(h, "## " ver " ") == 1 || h == "## " ver) { found = 1; next }
+              else if (found) exit
+            }
+            found { print }
+          ' CHANGELOG.md > release_notes.md
+          if [ ! -s release_notes.md ]; then
+            echo "::error::No changelog section found for $VERSION in CHANGELOG.md"
+            exit 1
+          fi
+          echo "--- release notes ---"
+          cat release_notes.md
+
+      - name: Package extension
+        run: pnpm run build
+
+      # Publish before tagging so a failed publish never leaves a tag behind.
+      - name: Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: pnpm exec vsce publish --no-dependencies --allow-star-activation
+
+      - name: Publish to Open VSX Registry
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: npx -y ovsx publish "mark-elixir-${{ steps.version.outputs.version }}.vsix" -p "$OVSX_PAT"
+
+      - name: Create tag and GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          gh release create "v$VERSION" \
+            --target "$GITHUB_SHA" \
+            --title "v$VERSION" \
+            --notes-file release_notes.md \
+            "mark-elixir-$VERSION.vsix"
