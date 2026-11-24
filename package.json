@@ -70,6 +70,13 @@
     "build": "pnpm vsce package --no-dependencies --allow-star-activation",
     "publish-ext": "pnpm vsce publish --no-dependencies --allow-star-activation"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@vscode/vsce-sign",
+      "esbuild",
+      "keytar"
+    ]
+  },
   "devDependencies": {
     "@types/katex": "^0.16.8",
     "@types/mocha": "^10.0.6",
@@ -86,7 +93,7 @@
   },
   "dependencies": {
     "@mind-elixir/export-mindmap": "0.1.4-beta.6",
-    "@mind-elixir/import-markdown": "0.0.1",
+    "@mind-elixir/import-markdown": "0.0.2",
     "@types/hast": "^3.0.4",
     "@types/mdast": "^4.0.4",
     "@vscode/vsce": "^2.27.0",
