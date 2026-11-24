@@ -11,6 +11,9 @@ importers:
       '@mind-elixir/export-mindmap':
         specifier: 0.1.4-beta.6
         version: 0.1.4-beta.6
+      '@mind-elixir/import-markdown':
+        specifier: 0.0.1
+        version: 0.0.1(supports-color@8.1.1)
       '@types/hast':
         specifier: ^3.0.4
         version: 3.0.4
@@ -19,7 +22,7 @@ importers:
         version: 4.0.4
       '@vscode/vsce':
         specifier: ^2.27.0
-        version: 2.27.0
+        version: 2.27.0(supports-color@8.1.1)
       katex:
         specifier: ^0.16.45
         version: 0.16.47
@@ -37,16 +40,16 @@ importers:
         version: 10.0.0
       remark-frontmatter:
         specifier: ^5.0.0
-        version: 5.0.0
+        version: 5.0.0(supports-color@8.1.1)
       remark-gfm:
         specifier: ^4.0.0
-        version: 4.0.0
+        version: 4.0.0(supports-color@8.1.1)
       remark-html:
         specifier: ^16.0.1
         version: 16.0.1
       remark-parse:
         specifier: ^11.0.0
-        version: 11.0.0
+        version: 11.0.0(supports-color@8.1.1)
       remark-rehype:
         specifier: ^11.1.0
         version: 11.1.0
@@ -71,22 +74,22 @@ importers:
         version: 1.90.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.11.0
-        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+        version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5))(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)
       '@typescript-eslint/parser':
         specifier: ^7.11.0
-        version: 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+        version: 7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)
       '@vscode/test-cli':
         specifier: ^0.0.9
         version: 0.0.9
       '@vscode/test-electron':
         specifier: ^2.4.0
-        version: 2.4.0
+        version: 2.4.0(supports-color@8.1.1)
       esbuild:
         specifier: ^0.21.4
         version: 0.21.4
       eslint:
         specifier: ^8.57.0
-        version: 8.57.0
+        version: 8.57.0(supports-color@8.1.1)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -335,6 +338,9 @@ packages:
   '@mind-elixir/export-mindmap@0.1.4-beta.6':
     resolution: {integrity: sha512-263poG6XetguIfCHq8HDlqy/Tm8h7qCSXN02JrqauqWCTjWN8pHt8OdvH/TbW9MtI2kh1Uah7uXahlzZUmj1cA==}
 
+  '@mind-elixir/import-markdown@0.0.1':
+    resolution: {integrity: sha512-d/yiSEPClrxMcvpQ4kg7xGvmevlIaw2+5t4YtLkHZyucFJaR3Xi+9zYUYs9LbqiEEfZYIHtLXIGiFO1xNPhLgw==}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -383,6 +389,9 @@ packages:
 
   '@types/unist@3.0.2':
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
+
+  '@types/unist@3.0.3':
+    resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
   '@types/vscode@1.90.0':
     resolution: {integrity: sha512-oT+ZJL7qHS9Z8bs0+WKf/kQ27qWYR3trsXpq46YDjFqBsMLG4ygGGjPaJ2tyrH0wJzjOEmDyg9PDJBBhWg9pkQ==}
@@ -945,6 +954,7 @@ packages:
   eslint@8.57.0:
     resolution: {integrity: sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@9.6.1:
@@ -1930,6 +1940,9 @@ packages:
   rehype-stringify@10.0.0:
     resolution: {integrity: sha512-1TX1i048LooI9QoecrXy7nGFFbFSufxVRAfc6Y9YMRAi56l+oB0zP51mLSV312uRuvVLPV1opSlJmslozR1XHQ==}
 
+  rehype-stringify@10.0.1:
+    resolution: {integrity: sha512-k9ecfXHmIPuFVI61B9DeLPN0qFHfawM6RsuX48hoqlaKSF61RskNjSm1lI8PhBEM0MRdLxVVm4WmTqJQccH9mA==}
+
   remark-frontmatter@5.0.0:
     resolution: {integrity: sha512-XTFYvNASMe5iPN0719nPrdItC9aU0ssC4v14mH1BCi1u0n1gAocqcujWUrByftZTbLhRtiKRyjYTSIOcr69UVQ==}
 
@@ -1944,6 +1957,9 @@ packages:
 
   remark-rehype@11.1.0:
     resolution: {integrity: sha512-z3tJrAs2kIs1AqIIy6pzHmAHlF1hWQ+OdY4/hv+Wxe35EhyLKcajL33iUEn3ScxtFox9nUvRufR/Zre8Q08H/g==}
+
+  remark-rehype@11.1.2:
+    resolution: {integrity: sha512-Dh7l57ianaEoIpzbp0PC9UKAdCSVklD8E5Rpw7ETfbTl3FqcOOgq5q2LVDhgGCkaBv7p24JXikPdvhhmHvKMsw==}
 
   remark-stringify@11.0.0:
     resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==}
@@ -2256,6 +2272,9 @@ packages:
   unified@11.0.4:
     resolution: {integrity: sha512-apMPnyLjAX+ty4OrNap7yumyVAMlKx5IWU2wlzzUdYJO9A8f1p9m/gywF/GM2ZDFcjQPrx59Mc90KwmxsoklxQ==}
 
+  unified@11.0.5:
+    resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
+
   unist-util-find-after@5.0.0:
     resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
 
@@ -2413,11 +2432,11 @@ snapshots:
       '@azure/core-util': 1.9.0
       tslib: 2.6.3
 
-  '@azure/core-client@1.9.2':
+  '@azure/core-client@1.9.2(supports-color@8.1.1)':
     dependencies:
       '@azure/abort-controller': 2.1.2
       '@azure/core-auth': 1.7.2
-      '@azure/core-rest-pipeline': 1.16.0
+      '@azure/core-rest-pipeline': 1.16.0(supports-color@8.1.1)
       '@azure/core-tracing': 1.1.2
       '@azure/core-util': 1.9.0
       '@azure/logger': 1.1.2
@@ -2425,15 +2444,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@azure/core-rest-pipeline@1.16.0':
+  '@azure/core-rest-pipeline@1.16.0(supports-color@8.1.1)':
     dependencies:
       '@azure/abort-controller': 2.1.2
       '@azure/core-auth': 1.7.2
       '@azure/core-tracing': 1.1.2
       '@azure/core-util': 1.9.0
       '@azure/logger': 1.1.2
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.4
+      http-proxy-agent: 7.0.2(supports-color@8.1.1)
+      https-proxy-agent: 7.0.4(supports-color@8.1.1)
       tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
@@ -2447,12 +2466,12 @@ snapshots:
       '@azure/abort-controller': 2.1.2
       tslib: 2.6.3
 
-  '@azure/identity@4.2.0':
+  '@azure/identity@4.2.0(supports-color@8.1.1)':
     dependencies:
       '@azure/abort-controller': 1.1.0
       '@azure/core-auth': 1.7.2
-      '@azure/core-client': 1.9.2
-      '@azure/core-rest-pipeline': 1.16.0
+      '@azure/core-client': 1.9.2(supports-color@8.1.1)
+      '@azure/core-rest-pipeline': 1.16.0(supports-color@8.1.1)
       '@azure/core-tracing': 1.1.2
       '@azure/core-util': 1.9.0
       '@azure/logger': 1.1.2
@@ -2553,17 +2572,17 @@ snapshots:
   '@esbuild/win32-x64@0.21.4':
     optional: true
 
-  '@eslint-community/eslint-utils@4.4.0(eslint@8.57.0)':
+  '@eslint-community/eslint-utils@4.4.0(eslint@8.57.0(supports-color@8.1.1))':
     dependencies:
-      eslint: 8.57.0
+      eslint: 8.57.0(supports-color@8.1.1)
       eslint-visitor-keys: 3.4.3
 
   '@eslint-community/regexpp@4.10.1': {}
 
-  '@eslint/eslintrc@2.1.4':
+  '@eslint/eslintrc@2.1.4(supports-color@8.1.1)':
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.5
+      debug: 4.3.5(supports-color@8.1.1)
       espree: 9.6.1
       globals: 13.24.0
       ignore: 5.3.1
@@ -2576,10 +2595,10 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@humanwhocodes/config-array@0.11.14':
+  '@humanwhocodes/config-array@0.11.14(supports-color@8.1.1)':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
-      debug: 4.3.5
+      debug: 4.3.5(supports-color@8.1.1)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -2614,6 +2633,19 @@ snapshots:
       fast-xml-parser: 4.5.6
       jszip: 3.10.1
       modern-screenshot: 4.7.0
+
+  '@mind-elixir/import-markdown@0.0.1(supports-color@8.1.1)':
+    dependencies:
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
+      '@types/unist': 3.0.3
+      rehype-stringify: 10.0.1
+      remark-gfm: 4.0.0(supports-color@8.1.1)
+      remark-parse: 11.0.0(supports-color@8.1.1)
+      remark-rehype: 11.1.2
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - supports-color
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -2662,17 +2694,19 @@ snapshots:
 
   '@types/unist@3.0.2': {}
 
+  '@types/unist@3.0.3': {}
+
   '@types/vscode@1.90.0': {}
 
-  '@typescript-eslint/eslint-plugin@7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)':
+  '@typescript-eslint/eslint-plugin@7.12.0(@typescript-eslint/parser@7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5))(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)':
     dependencies:
       '@eslint-community/regexpp': 4.10.1
-      '@typescript-eslint/parser': 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser': 7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)
       '@typescript-eslint/scope-manager': 7.12.0
-      '@typescript-eslint/type-utils': 7.12.0(eslint@8.57.0)(typescript@5.4.5)
-      '@typescript-eslint/utils': 7.12.0(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/type-utils': 7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)
+      '@typescript-eslint/utils': 7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)
       '@typescript-eslint/visitor-keys': 7.12.0
-      eslint: 8.57.0
+      eslint: 8.57.0(supports-color@8.1.1)
       graphemer: 1.4.0
       ignore: 5.3.1
       natural-compare: 1.4.0
@@ -2682,14 +2716,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@7.12.0(eslint@8.57.0)(typescript@5.4.5)':
+  '@typescript-eslint/parser@7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)':
     dependencies:
       '@typescript-eslint/scope-manager': 7.12.0
       '@typescript-eslint/types': 7.12.0
-      '@typescript-eslint/typescript-estree': 7.12.0(typescript@5.4.5)
+      '@typescript-eslint/typescript-estree': 7.12.0(supports-color@8.1.1)(typescript@5.4.5)
       '@typescript-eslint/visitor-keys': 7.12.0
-      debug: 4.3.5
-      eslint: 8.57.0
+      debug: 4.3.5(supports-color@8.1.1)
+      eslint: 8.57.0(supports-color@8.1.1)
     optionalDependencies:
       typescript: 5.4.5
     transitivePeerDependencies:
@@ -2700,12 +2734,12 @@ snapshots:
       '@typescript-eslint/types': 7.12.0
       '@typescript-eslint/visitor-keys': 7.12.0
 
-  '@typescript-eslint/type-utils@7.12.0(eslint@8.57.0)(typescript@5.4.5)':
+  '@typescript-eslint/type-utils@7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 7.12.0(typescript@5.4.5)
-      '@typescript-eslint/utils': 7.12.0(eslint@8.57.0)(typescript@5.4.5)
-      debug: 4.3.5
-      eslint: 8.57.0
+      '@typescript-eslint/typescript-estree': 7.12.0(supports-color@8.1.1)(typescript@5.4.5)
+      '@typescript-eslint/utils': 7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)
+      debug: 4.3.5(supports-color@8.1.1)
+      eslint: 8.57.0(supports-color@8.1.1)
       ts-api-utils: 1.3.0(typescript@5.4.5)
     optionalDependencies:
       typescript: 5.4.5
@@ -2714,11 +2748,11 @@ snapshots:
 
   '@typescript-eslint/types@7.12.0': {}
 
-  '@typescript-eslint/typescript-estree@7.12.0(typescript@5.4.5)':
+  '@typescript-eslint/typescript-estree@7.12.0(supports-color@8.1.1)(typescript@5.4.5)':
     dependencies:
       '@typescript-eslint/types': 7.12.0
       '@typescript-eslint/visitor-keys': 7.12.0
-      debug: 4.3.5
+      debug: 4.3.5(supports-color@8.1.1)
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.4
@@ -2729,13 +2763,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@7.12.0(eslint@8.57.0)(typescript@5.4.5)':
+  '@typescript-eslint/utils@7.12.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.4.5)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0(supports-color@8.1.1))
       '@typescript-eslint/scope-manager': 7.12.0
       '@typescript-eslint/types': 7.12.0
-      '@typescript-eslint/typescript-estree': 7.12.0(typescript@5.4.5)
-      eslint: 8.57.0
+      '@typescript-eslint/typescript-estree': 7.12.0(supports-color@8.1.1)(typescript@5.4.5)
+      eslint: 8.57.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -2759,10 +2793,10 @@ snapshots:
       supports-color: 9.4.0
       yargs: 17.7.2
 
-  '@vscode/test-electron@2.4.0':
+  '@vscode/test-electron@2.4.0(supports-color@8.1.1)':
     dependencies:
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.4
+      http-proxy-agent: 7.0.2(supports-color@8.1.1)
+      https-proxy-agent: 7.0.4(supports-color@8.1.1)
       jszip: 3.10.1
       ora: 7.0.1
       semver: 7.6.2
@@ -2808,9 +2842,9 @@ snapshots:
       '@vscode/vsce-sign-win32-arm64': 2.0.2
       '@vscode/vsce-sign-win32-x64': 2.0.2
 
-  '@vscode/vsce@2.27.0':
+  '@vscode/vsce@2.27.0(supports-color@8.1.1)':
     dependencies:
-      '@azure/identity': 4.2.0
+      '@azure/identity': 4.2.0(supports-color@8.1.1)
       '@vscode/vsce-sign': 2.0.4
       azure-devops-node-api: 12.5.0
       chalk: 2.4.2
@@ -2845,9 +2879,9 @@ snapshots:
 
   acorn@8.11.3: {}
 
-  agent-base@7.1.1:
+  agent-base@7.1.1(supports-color@8.1.1):
     dependencies:
-      debug: 4.3.5
+      debug: 4.3.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -3152,9 +3186,11 @@ snapshots:
     optionalDependencies:
       supports-color: 8.1.1
 
-  debug@4.3.5:
+  debug@4.3.5(supports-color@8.1.1):
     dependencies:
       ms: 2.1.2
+    optionalDependencies:
+      supports-color: 8.1.1
 
   decamelize@4.0.0: {}
 
@@ -3367,20 +3403,20 @@ snapshots:
 
   eslint-visitor-keys@3.4.3: {}
 
-  eslint@8.57.0:
+  eslint@8.57.0(supports-color@8.1.1):
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0(supports-color@8.1.1))
       '@eslint-community/regexpp': 4.10.1
-      '@eslint/eslintrc': 2.1.4
+      '@eslint/eslintrc': 2.1.4(supports-color@8.1.1)
       '@eslint/js': 8.57.0
-      '@humanwhocodes/config-array': 0.11.14
+      '@humanwhocodes/config-array': 0.11.14(supports-color@8.1.1)
       '@humanwhocodes/module-importer': 1.0.1
       '@nodelib/fs.walk': 1.2.8
       '@ungap/structured-clone': 1.2.0
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.5
+      debug: 4.3.5(supports-color@8.1.1)
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.2.2
@@ -3730,17 +3766,17 @@ snapshots:
       domutils: 3.1.0
       entities: 4.5.0
 
-  http-proxy-agent@7.0.2:
+  http-proxy-agent@7.0.2(supports-color@8.1.1):
     dependencies:
-      agent-base: 7.1.1
-      debug: 4.3.5
+      agent-base: 7.1.1(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@7.0.4:
+  https-proxy-agent@7.0.4(supports-color@8.1.1):
     dependencies:
-      agent-base: 7.1.1
-      debug: 4.3.5
+      agent-base: 7.1.1(supports-color@8.1.1)
+      debug: 4.3.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4052,14 +4088,14 @@ snapshots:
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
 
-  mdast-util-from-markdown@2.0.1:
+  mdast-util-from-markdown@2.0.1(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.2
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
       mdast-util-to-string: 4.0.0
-      micromark: 4.0.0
+      micromark: 4.0.0(supports-color@8.1.1)
       micromark-util-decode-numeric-character-reference: 2.0.1
       micromark-util-decode-string: 2.0.0
       micromark-util-normalize-identifier: 2.0.0
@@ -4069,12 +4105,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-frontmatter@2.0.1:
+  mdast-util-frontmatter@2.0.1(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       escape-string-regexp: 5.0.0
-      mdast-util-from-markdown: 2.0.1
+      mdast-util-from-markdown: 2.0.1(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.0
       micromark-extension-frontmatter: 2.0.0
     transitivePeerDependencies:
@@ -4088,51 +4124,51 @@ snapshots:
       mdast-util-find-and-replace: 3.0.1
       micromark-util-character: 2.1.0
 
-  mdast-util-gfm-footnote@2.0.0:
+  mdast-util-gfm-footnote@2.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.1
+      mdast-util-from-markdown: 2.0.1(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.0
       micromark-util-normalize-identifier: 2.0.0
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-strikethrough@2.0.0:
+  mdast-util-gfm-strikethrough@2.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.0.1
+      mdast-util-from-markdown: 2.0.1(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.0
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-table@2.0.0:
+  mdast-util-gfm-table@2.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       markdown-table: 3.0.3
-      mdast-util-from-markdown: 2.0.1
+      mdast-util-from-markdown: 2.0.1(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.0
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-task-list-item@2.0.0:
+  mdast-util-gfm-task-list-item@2.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.1
+      mdast-util-from-markdown: 2.0.1(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.0
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm@3.0.0:
+  mdast-util-gfm@3.0.0(supports-color@8.1.1):
     dependencies:
-      mdast-util-from-markdown: 2.0.1
+      mdast-util-from-markdown: 2.0.1(supports-color@8.1.1)
       mdast-util-gfm-autolink-literal: 2.0.0
-      mdast-util-gfm-footnote: 2.0.0
-      mdast-util-gfm-strikethrough: 2.0.0
-      mdast-util-gfm-table: 2.0.0
-      mdast-util-gfm-task-list-item: 2.0.0
+      mdast-util-gfm-footnote: 2.0.0(supports-color@8.1.1)
+      mdast-util-gfm-strikethrough: 2.0.0(supports-color@8.1.1)
+      mdast-util-gfm-table: 2.0.0(supports-color@8.1.1)
+      mdast-util-gfm-task-list-item: 2.0.0(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.0
     transitivePeerDependencies:
       - supports-color
@@ -4351,10 +4387,10 @@ snapshots:
 
   micromark-util-types@2.0.0: {}
 
-  micromark@4.0.0:
+  micromark@4.0.0(supports-color@8.1.1):
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.3.5
+      debug: 4.3.5(supports-color@8.1.1)
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.1
@@ -4701,21 +4737,27 @@ snapshots:
       hast-util-to-html: 9.0.1
       unified: 11.0.4
 
-  remark-frontmatter@5.0.0:
+  rehype-stringify@10.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-to-html: 9.0.1
+      unified: 11.0.4
+
+  remark-frontmatter@5.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-frontmatter: 2.0.1
+      mdast-util-frontmatter: 2.0.1(supports-color@8.1.1)
       micromark-extension-frontmatter: 2.0.0
       unified: 11.0.4
     transitivePeerDependencies:
       - supports-color
 
-  remark-gfm@4.0.0:
+  remark-gfm@4.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-gfm: 3.0.0
+      mdast-util-gfm: 3.0.0(supports-color@8.1.1)
       micromark-extension-gfm: 3.0.0
-      remark-parse: 11.0.0
+      remark-parse: 11.0.0(supports-color@8.1.1)
       remark-stringify: 11.0.0
       unified: 11.0.4
     transitivePeerDependencies:
@@ -4729,16 +4771,24 @@ snapshots:
       mdast-util-to-hast: 13.2.0
       unified: 11.0.4
 
-  remark-parse@11.0.0:
+  remark-parse@11.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.0.1
+      mdast-util-from-markdown: 2.0.1(supports-color@8.1.1)
       micromark-util-types: 2.0.0
       unified: 11.0.4
     transitivePeerDependencies:
       - supports-color
 
   remark-rehype@11.1.0:
+    dependencies:
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
+      mdast-util-to-hast: 13.2.0
+      unified: 11.0.4
+      vfile: 6.0.1
+
+  remark-rehype@11.1.2:
     dependencies:
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
@@ -5083,6 +5133,16 @@ snapshots:
   undici-types@7.16.0: {}
 
   unified@11.0.4:
+    dependencies:
+      '@types/unist': 3.0.2
+      bail: 2.0.2
+      devlop: 1.1.0
+      extend: 3.0.2
+      is-plain-obj: 4.1.0
+      trough: 2.2.0
+      vfile: 6.0.1
+
+  unified@11.0.5:
     dependencies:
       '@types/unist': 3.0.2
       bail: 2.0.2

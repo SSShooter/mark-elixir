@@ -1,189 +1,10 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import remarkParse from 'remark-parse';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkGfm from 'remark-gfm';
-import remarkRehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
-import rehypeStringify from 'rehype-stringify';
-import { unified } from 'unified';
 import { MindElixirPanel } from './panel';
-import type { Heading, List, Paragraph, RootContent, Yaml } from 'mdast';
-import type { Root } from 'hast';
 import { NodeObj } from 'mind-elixir';
 import { plaintextToMindElixir, mindElixirToPlaintext } from 'mind-elixir/plaintextConverter';
-import type { Plugin } from 'unified';
-import { visit } from 'unist-util-visit';
-
-interface TreeItem {
-  children: TreeItem[];
-  object: any;
-  parent: TreeItem | null;
-  type: string;
-}
-
-function generateId(): string {
-  return Math.random().toString(36).substring(2, 11);
-}
-
-function extractText(node: any): string {
-  if (!node) return '';
-  if (typeof node.value === 'string') return node.value;
-  if (node.children) {
-    return node.children.map(extractText).join('');
-  }
-  return '';
-}
-
-const parseFrontmatter = (frontmatter: string) => {
-  const data = frontmatter
-    .split('\n')
-    .map((line) => line.split(':').map((item) => item.trim()));
-  return Object.fromEntries(data);
-};
-
-const markdownAstToTree = (ast: any): TreeItem => {
-  const children = ast.children || ast;
-  const treeItem: TreeItem = {
-    type: 'root',
-    children: [],
-    object: ast,
-    parent: null,
-  };
-
-  let current = treeItem;
-  for (let i = 0; i < children.length; i++) {
-    const child = children[i];
-    if (!child) continue;
-    if (child.type === 'yaml' || child.type === 'thematicBreak') {
-      continue;
-    }
-    if (child.type === 'heading') {
-      const heading = child as Heading;
-      const data: TreeItem = {
-        type: heading.type,
-        object: heading,
-        parent: current,
-        children: [],
-      };
-
-      if (heading.depth > (current.object.depth || 0)) {
-        current.children.push(data);
-        current = data;
-      } else {
-        while (
-          heading.depth <= (current.object.depth || 0) &&
-          current.parent
-        ) {
-          current = current.parent;
-        }
-        current.children.push(data);
-        current = data;
-      }
-    } else {
-      const data: TreeItem = {
-        type: child.type,
-        object: child,
-        parent: current,
-        children: [],
-      };
-      current.children.push(data);
-    }
-  }
-
-  return treeItem;
-};
-
-const addWidthAndHeight: Plugin<[], Root> = () =>
-  function transformer(tree) {
-    visit(tree, 'element', function visitor(node) {
-      if (node.tagName === 'img') {
-        node.properties.width = 200;
-        node.properties.height = 100;
-      }
-    });
-  };
-
-const htmlProcessor = unified()
-  .use(remarkRehype)
-  .use(rehypeHighlight)
-  .use(addWidthAndHeight)
-  .use(rehypeStringify);
-
-const processList = (list: List): NodeObj[] => {
-  return list.children.map((listItem) => {
-    const result: NodeObj = {
-      topic: '',
-      id: generateId(),
-      children: [],
-    };
-
-    const contentNode = listItem.children[0];
-    const nestedList = listItem.children[1];
-
-    if (contentNode) {
-      try {
-        const hastNode = htmlProcessor.runSync(contentNode as any);
-        const htmlStr = htmlProcessor.stringify(hastNode);
-        if (typeof htmlStr === 'string') {
-          result.dangerouslySetInnerHTML = htmlStr;
-        }
-      } catch (e) {
-        console.error('HTML conversion error', e);
-      }
-    }
-
-    if (nestedList && nestedList.type === 'list') {
-      result.children = processList(nestedList);
-    }
-
-    return result;
-  });
-};
-
-const treeToMindElixir = (items: TreeItem[]): NodeObj[] => {
-  const nodes: NodeObj[] = [];
-  if (items.length === 1 && items[0].type === 'list') {
-    return processList(items[0].object as List);
-  }
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    const node = {} as NodeObj;
-    nodes.push(node);
-    if (item.type === 'list') {
-      node.children = processList(item.object as List);
-      node.topic = 'List';
-      continue;
-    } else {
-      if (item.type === 'html') {
-        node.dangerouslySetInnerHTML = (item.object as any).value;
-      } else {
-        try {
-          const hastNode = htmlProcessor.runSync(item.object as any);
-          const htmlStr = htmlProcessor.stringify(hastNode);
-          if (typeof htmlStr === 'string') {
-            node.dangerouslySetInnerHTML = htmlStr;
-          }
-        } catch (e) {
-          console.error('HTML conversion error', e);
-        }
-      }
-    }
-
-    // Generate ID
-    node.id = item.object.position?.start?.offset?.toString() || generateId();
-
-    // KEY FEATURE: Merge following lists into preceding content
-    const next = items[i + 1];
-    if (next && next.type === 'list') {
-      node.children = processList(next.object as List);
-      items.splice(i + 1, 1);
-    } else {
-      node.children = treeToMindElixir(item.children);
-    }
-  }
-  return nodes;
-};
+import { parseMarkdown as parseMarkdownDoc, readFrontmatterTitle } from '@mind-elixir/import-markdown';
 
 /**
  * Get mind-elixir locale from VS Code language setting.
@@ -221,7 +42,8 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
 
     const getParsedData = (text: string) => {
       let data: NodeObj;
-      let title = path.basename(document.fileName, path.extname(document.fileName));
+      const basename = path.basename(document.fileName, path.extname(document.fileName));
+      let title = basename;
 
       if (isPlaintext) {
         // Use plaintextToMindElixir converter for Plaintext format
@@ -229,51 +51,48 @@ export const markdownToMindElixir = (context: vscode.ExtensionContext) => {
         data = mindElixirData.nodeData;
       } else {
         // Parse as Markdown
-        const ast = unified()
-          .use(remarkParse)
-          .use(remarkFrontmatter)
-          .use(remarkGfm)
-          .parse(text);
-
-        const frontmatter = ast.children.find((child) => child.type === 'yaml');
-
-        // Get configuration value
+        //
+        // The markdown -> MindElixir conversion itself lives in
+        // `@mind-elixir/import-markdown`, shared with the Obsidian plugin
+        // (`obsidian-mindmap`). Everything specific to this extension arrives
+        // through that package's options:
+        //
+        //   - `rehypePlugins`  syntax-highlight fenced code blocks. The
+        //     webview injects `public/hljs.css` to colour the `hljs-*` spans,
+        //     so this is load-bearing, not decoration.
+        //   - `imageSize`       every image is forced into a 200x100 box.
+        //   - `frontmatter`     a `title:` key in the YAML block replaces the
+        //     file name as the root topic.
+        //   - `h1AsRoot`        the `mindElixirMarkdown.h1AsRoot` setting.
         const config = vscode.workspace.getConfiguration('mindElixirMarkdown');
         const useH1AsRoot = config.get('h1AsRoot');
 
-        if (frontmatter) {
-          const obj = parseFrontmatter((frontmatter as Yaml).value);
-          if (obj.title) {
-            title = obj.title;
-          }
-        }
+        // A frontmatter `title:` is the document's real title. It seeds the
+        // root topic (inside the package, via `frontmatter: 'title'`) AND
+        // names the panel -- but the panel name must survive `h1AsRoot`, which
+        // replaces the root topic with the H1 text. Hence the separate read.
+        title = readFrontmatterTitle(text) || basename;
 
-        // Convert ast to hierarchical tree
-        const tree = markdownAstToTree(ast);
+        const parsed = parseMarkdownDoc(text, {
+          filename: basename,
+          // `getConfiguration().get()` is typed `unknown`. The pre-migration
+          // code only used the value in a truthiness test, so the looseness
+          // never surfaced; passing it into a typed option does, hence the
+          // explicit narrowing. A non-boolean setting is treated as "off",
+          // which is what the old truthiness test did for every falsy value.
+          h1AsRoot: useH1AsRoot === true,
+          frontmatter: 'title',
+          rehypePlugins: [rehypeHighlight],
+          imageSize: { width: 200, height: 100 },
+        });
 
-        let nodes: NodeObj[];
-        let rootTopic = title;
+        data = parsed.nodeData;
 
-        if (useH1AsRoot) {
-          const h1Index = tree.children.findIndex(
-            (child) => child.type === 'heading' && (child.object as Heading).depth === 1
-          );
-          if (h1Index !== -1) {
-            const h1 = tree.children[h1Index];
-            rootTopic = extractText(h1.object);
-            nodes = treeToMindElixir(h1.children);
-          } else {
-            nodes = treeToMindElixir(tree.children);
-          }
-        } else {
-          nodes = treeToMindElixir(tree.children);
-        }
-
-        data = {
-          topic: rootTopic,
-          id: 'root',
-          children: nodes,
-        };
+        // The pre-migration implementation hard-coded the root id as 'root';
+        // the package generates a random one. Pin it back, so the debounced
+        // re-parse below hands the webview a tree whose root keeps its
+        // identity instead of appearing to be a different document.
+        data.id = 'root';
       }
       return { data, title };
     };

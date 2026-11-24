@@ -1,0 +1,6 @@
+allowBuilds:
+  '@vscode/vsce-sign': set this to true or false
+  esbuild: set this to true or false
+  keytar: set this to true or false
+minimumReleaseAgeExclude:
+  - '@mind-elixir/import-markdown@0.0.1'
